@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GeTPesa | Instant Loan Packages | Colorful & Bold</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #0a2f1f 0%, #0c4a2e 100%);
+            min-height: 100vh;
+            color: #fef9e6;
+        }
+
+        /* Loader overlay with rich gradient */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 10%, #1e4b2e, #062013);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader-container {
+            text-align: center;
+            backdrop-filter: blur(4px);
+            padding: 2rem;
+            border-radius: 48px;
+            background: rgba(255,255,240,0.05);
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border: 6px solid rgba(255,220,100,0.2);
+            border-top: 6px solid #f5b042;
+            border-radius: 50%;
+            animation: spin 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFE6A3, #FFB347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* Main content (initially hidden) */
+        .main-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .badge {
+            background: #ffd966;
+            color: #1e3a2f;
+            font-weight: 800;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff2c9, #ffcf6e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #e9f5e8;
+            background: rgba(0,0,0,0.2);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* fee note */
+        .fee-note {
+            background: rgba(255,235,190,0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 0.9rem 1.8rem;
+            margin: 2rem auto;
+            max-width: 750px;
+            text-align: center;
+            font-weight: 500;
+            border: 1px solid #ffcf6e;
+            color: #ffefc0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 1rem;
+        }
+
+        /* TWO COLUMN GRID (2 cards per row) */
+        .loan-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Card design - colorful, glassy, vibrant */
+        .loan-card {
+            background: linear-gradient(135deg, rgba(255,255,245,0.95) 0%, #fff9ef 100%);
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,200,100,0.6);
+            color: #1e2f2a;
+        }
+
+        .loan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 40px -12px black;
+            border-color: #f3b33d;
+        }
+
+        .card-header {
+            background: #1e5631;
+            padding: 1.2rem 1.5rem;
+            color: #ffefcf;
+            border-bottom: 3px solid #f6b83e;
+        }
+
+        .loan-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .loan-amount span:first-child {
+            background: #ffcd7e;
+            color: #1b4d2e;
+            padding: 0.15rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            border-bottom: 1px dashed #e2cfae;
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-label {
+            color: #4a3b22;
+        }
+
+        .detail-value {
+            font-weight: 800;
+        }
+
+        .fee-value {
+            color: #c2571a;
+        }
+
+        .net-value {
+            color: #1f8040;
+            font-size: 1.1rem;
+        }
+
+        .divider {
+            height: 2px;
+            background: radial-gradient(circle, #ffbc6e, transparent);
+            margin: 1rem 0;
+        }
+
+        .payment-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(95deg, #f39c12, #e67e22);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 0.9rem 0;
+            border-radius: 80px;
+            transition: all 0.2s;
+            margin-top: 0.8rem;
+            font-family: inherit;
+            box-shadow: 0 5px 12px rgba(230,126,34,0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .payment-btn:hover {
+            background: linear-gradient(95deg, #e67e22, #d35400);
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 48px;
+            backdrop-filter: blur(5px);
+            font-size: 0.85rem;
+            color: #fcefc7;
+        }
+
+        /* Responsive: on mobile -> 1 column */
+        @media (max-width: 768px) {
+            .loan-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PRELOADER (3 seconds) -->
+<div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-container">
+        <div class="spinner"></div>
+        <div class="loader-text">⚡ GeTPesa ⚡</div>
+        <p style="margin-top: 12px; font-weight: 500; color: #f9e2a1;">Preparing vibrant loan packages...</p>
+    </div>
+</div>
+
+<!-- MAIN PAGE CONTENT (initially hidden) -->
+<div id="mainContent" class="main-content">
+    <div class="container">
+        <div class="header">
+            <div class="badge">🚀 same-day M-Pesa</div>
+            <h1>Flexible Loans · 2‑column view</h1>
+            <div class="subhead">11.5% processing fee • get net amount instantly</div>
+        </div>
+
+        <div class="fee-note">
+            <span>💸</span> Processing fee = 11.5% of loan requested. <strong>You receive the balance</strong> within minutes after fee payment.
+        </div>
+
+        <!-- LOAN CARDS (2 per row) -->
+        <div id="loanCardsContainer" class="loan-grid"></div>
+
+        <div class="footer">
+            <p>🔐 Licensed & trusted • Money sent to M-Pesa • Replace buttons with your actual payment links</p>
+            <p style="margin-top: 8px;">⬇️ Each button is ready — just update <code style="background:#2e3b2c; padding:2px 6px; border-radius:30px;">href="your-payment-link-here"</code> per amount</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Loan packages: 10 amounts
+    const loanProducts = [
+        { amount: 1000 },
+        { amount: 2000 },
+        { amount: 5000 },
+        { amount: 10000 },
+        { amount: 20000 },
+        { amount: 40000 },
+        { amount: 50000 },
+        { amount: 60000 },
+        { amount: 80000 },
+        { amount: 100000 }
+    ];
+
+    const FEE_PERCENT = 11.5;
+
+    function formatKES(value) {
+        return 'KES ' + value.toLocaleString('en-KE');
+    }
+
+    function buildCards() {
+        const container = document.getElementById('loanCardsContainer');
+        if (!container) return;
+
+        let html = '';
+        for (let prod of loanProducts) {
+            const amount = prod.amount;
+            const fee = amount * (FEE_PERCENT / 100);
+            const net = amount - fee;
+            const roundedFee = Math.round(fee);
+            const roundedNet = Math.round(net);
+            
+            // === IMPORTANT: replace the href="#" with your actual payment link for each specific amount ===
+            // Example: you could dynamically generate a link like /pay/1000 but since user wants to add manually, we keep # with data-amount
+            // For convenience, you can edit these buttons directly in browser inspector or modify this script's paymentUrlMap.
+            // I'll leave a placeholder but also add a console reminder.
+            let paymentUrl = '#';   // <-- CHANGE THIS FOR EACH PACKAGE ACCORDING TO YOUR PAYMENT GATEWAY
+            // Optional: you can uncomment and create mapping
+            // const urlMap = { 1000: '/pay/1k', 2000: '/pay/2k', ... etc }
+            // paymentUrl = urlMap[amount] || '#';
+            
+            html += `
+                <div class="loan-card">
+                    <div class="card-header">
+                        <div class="loan-amount">
+                            <span>💎 REQUEST</span>
+                            <span>${formatKES(amount)}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row">
+                            <span class="detail-label">Processing fee (11.5%):</span>
+                            <span class="detail-value fee-value">${formatKES(roundedFee)}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">💰 You receive (Net):</span>
+                            <span class="detail-value net-value">${formatKES(roundedNet)}</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="detail-row">
+                            <span class="detail-label">⏱️ Disbursement:</span>
+                            <span class="detail-value">~2 minutes after fee</span>
+                        </div>
+                        <a href="${paymentUrl}" class="payment-btn" data-loan="${amount}">
+                            📲 Pay ${formatKES(roundedFee)} (M-Pesa)
+                        </a>
+                        <p style="font-size: 0.7rem; text-align:center; margin-top: 12px; color:#a5712a;">
+                            🔗 Replace "#" with actual payment link for this amount
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+        console.log("✅ 2-column layout ready. Update each button's href with your M-Pesa payment URL (for each amount).");
+    }
+
+    // ---- 3-second loader then reveal ----
+    function startLoader() {
+        const loader = document.getElementById('loaderOverlay');
+        const main = document.getElementById('mainContent');
+
+        setTimeout(() => {
+            if (loader) {
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }
+            if (main) main.classList.add('visible');
+        }, 3000);
+    }
+
+    buildCards();
+    startLoader();
+</script>
+</body>
+</html>
