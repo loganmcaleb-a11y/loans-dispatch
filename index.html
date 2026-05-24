@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>GeTPesa | Instant Loan Packages | Colorful & Bold</title>
+    <title>GeTPesa | Paired Loan Packages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,44 +14,45 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(145deg, #0a2f1f 0%, #0c4a2e 100%);
-            min-height: 100vh;
-            color: #fef9e6;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0A0C10;
+            color: #EFF3F6;
+            line-height: 1.5;
         }
 
-        /* Loader overlay with rich gradient */
+        /* Loader (3 seconds) */
         .loader-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 10%, #1e4b2e, #062013);
+            background: #0A0C10;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
 
-        .loader-container {
+        .loader-card {
+            background: rgba(18, 22, 32, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 2rem 2.5rem;
+            border-radius: 32px;
             text-align: center;
-            backdrop-filter: blur(4px);
-            padding: 2rem;
-            border-radius: 48px;
-            background: rgba(255,255,240,0.05);
-            border: 1px solid rgba(255,215,0,0.3);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
         }
 
         .spinner {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
-            border: 6px solid rgba(255,220,100,0.2);
-            border-top: 6px solid #f5b042;
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(0, 230, 118, 0.2);
+            border-top: 4px solid #00e676;
             border-radius: 50%;
-            animation: spin 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin: 0 auto 1rem;
         }
 
         @keyframes spin {
@@ -58,16 +61,15 @@
         }
 
         .loader-text {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FFE6A3, #FFB347);
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #EFF3F6, #00e676);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 1px;
         }
 
-        /* Main content (initially hidden) */
+        /* Main content (hidden until loader finishes) */
         .main-content {
             opacity: 0;
             visibility: hidden;
@@ -79,259 +81,240 @@
             visibility: visible;
         }
 
-        /* container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        /* header */
-        .header {
+        /* Hero section with background image */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(5, 10, 20, 0.92), rgba(0, 0, 0, 0.85)), 
+                        url('https://i.postimg.cc/FzzWSMb0/Woman-wow-portrait-and-money-fan-for-bonus-financial-success-and-winning-finance-loan-or-cashback-bo.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            padding: 3rem 1.5rem 4rem;
             text-align: center;
-            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(0, 230, 118, 0.3);
         }
 
         .badge {
-            background: #ffd966;
-            color: #1e3a2f;
-            font-weight: 800;
-            padding: 0.3rem 1.2rem;
-            border-radius: 40px;
             display: inline-block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            background: rgba(0, 230, 118, 0.12);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 80px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #00e676;
+            border: 1px solid rgba(0, 230, 118, 0.3);
             margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             font-weight: 800;
-            background: linear-gradient(to right, #fff2c9, #ffcf6e);
+            background: linear-gradient(135deg, #FFFFFF, #00e676);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             margin-bottom: 0.5rem;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .subhead {
-            font-size: 1.1rem;
-            color: #e9f5e8;
-            background: rgba(0,0,0,0.2);
-            display: inline-block;
-            padding: 0.4rem 1.2rem;
-            border-radius: 50px;
-            backdrop-filter: blur(4px);
-        }
-
-        /* fee note */
-        .fee-note {
-            background: rgba(255,235,190,0.2);
-            backdrop-filter: blur(8px);
-            border-radius: 60px;
-            padding: 0.9rem 1.8rem;
-            margin: 2rem auto;
-            max-width: 750px;
-            text-align: center;
-            font-weight: 500;
-            border: 1px solid #ffcf6e;
-            color: #ffefc0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
             font-size: 1rem;
+            color: #B0C4DE;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* TWO COLUMN GRID (2 cards per row) */
-        .loan-grid {
+        .fee-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Container for paired rows */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Each pair row: exactly two cards side by side */
+        .pair-row {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        /* Card design - colorful, glassy, vibrant */
+        /* Individual card styling (different bubbles = different subtle gradient accents) */
         .loan-card {
-            background: linear-gradient(135deg, rgba(255,255,245,0.95) 0%, #fff9ef 100%);
-            border-radius: 2rem;
+            background: #12161F;
+            border-radius: 28px;
+            border: 1px solid #2A2F3C;
+            transition: transform 0.2s ease, border-color 0.2s;
             overflow: hidden;
-            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,200,100,0.6);
-            color: #1e2f2a;
         }
 
         .loan-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 40px -12px black;
-            border-color: #f3b33d;
+            transform: translateY(-4px);
+            border-color: #00e676;
+            box-shadow: 0 20px 30px -12px rgba(0, 230, 118, 0.15);
+        }
+
+        /* Unique accent colors per card (different bubbles) */
+        .loan-card:nth-child(odd) .card-header {
+            border-bottom-color: #ff8c42;
+        }
+        .loan-card:nth-child(even) .card-header {
+            border-bottom-color: #3b82f6;
         }
 
         .card-header {
-            background: #1e5631;
-            padding: 1.2rem 1.5rem;
-            color: #ffefcf;
-            border-bottom: 3px solid #f6b83e;
+            padding: 1.2rem 1.2rem 0.8rem;
+            border-bottom: 2px solid #2A2F3C;
         }
 
-        .loan-amount {
-            font-size: 2rem;
+        .amount {
+            font-size: 1.7rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
         }
 
-        .loan-amount span:first-child {
-            background: #ffcd7e;
-            color: #1b4d2e;
-            padding: 0.15rem 0.8rem;
-            border-radius: 40px;
+        .amount small {
             font-size: 0.8rem;
-            font-weight: 700;
+            font-weight: 500;
+            color: #9AA4BF;
+        }
+
+        .fee-badge {
+            background: rgba(0, 230, 118, 0.1);
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #00e676;
+            margin-top: 0.4rem;
         }
 
         .card-body {
-            padding: 1.5rem;
+            padding: 1rem 1.2rem 1.2rem;
         }
 
         .detail-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
-            font-weight: 500;
-            border-bottom: 1px dashed #e2cfae;
-            padding-bottom: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.7rem;
         }
 
-        .detail-label {
-            color: #4a3b22;
-        }
-
-        .detail-value {
-            font-weight: 800;
-        }
-
-        .fee-value {
-            color: #c2571a;
-        }
-
-        .net-value {
-            color: #1f8040;
-            font-size: 1.1rem;
+        .net {
+            font-weight: 700;
+            color: #00e676;
+            font-size: 0.95rem;
         }
 
         .divider {
-            height: 2px;
-            background: radial-gradient(circle, #ffbc6e, transparent);
-            margin: 1rem 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #2A2F3C, transparent);
+            margin: 0.8rem 0;
         }
 
-        .payment-btn {
-            display: block;
+        .pay-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             width: 100%;
-            background: linear-gradient(95deg, #f39c12, #e67e22);
-            color: white;
-            text-align: center;
+            background: #00e676;
+            color: #0A0C10;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.8rem 0;
+            border-radius: 60px;
             text-decoration: none;
-            font-weight: 800;
-            font-size: 1rem;
-            padding: 0.9rem 0;
-            border-radius: 80px;
             transition: all 0.2s;
-            margin-top: 0.8rem;
-            font-family: inherit;
-            box-shadow: 0 5px 12px rgba(230,126,34,0.4);
+            margin-top: 0.5rem;
             border: none;
             cursor: pointer;
         }
 
-        .payment-btn:hover {
-            background: linear-gradient(95deg, #e67e22, #d35400);
+        .pay-btn:hover {
+            background: #00c853;
             transform: scale(0.98);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.3);
         }
 
-        .footer {
+        .footer-note {
             text-align: center;
-            margin-top: 3rem;
-            padding: 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 48px;
-            backdrop-filter: blur(5px);
-            font-size: 0.85rem;
-            color: #fcefc7;
+            margin-top: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2A2F3C;
+            font-size: 0.7rem;
+            color: #7A8599;
         }
 
-        /* Responsive: on mobile -> 1 column */
-        @media (max-width: 768px) {
-            .loan-grid {
+        /* Responsive: single column on mobile */
+        @media (max-width: 680px) {
+            .pair-row {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
             }
             h1 {
-                font-size: 2rem;
+                font-size: 1.9rem;
             }
-            .container {
-                padding: 1rem;
+            .hero {
+                padding: 2rem 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- PRELOADER (3 seconds) -->
+<!-- 3-second loader -->
 <div id="loaderOverlay" class="loader-overlay">
-    <div class="loader-container">
+    <div class="loader-card">
         <div class="spinner"></div>
-        <div class="loader-text">⚡ GeTPesa ⚡</div>
-        <p style="margin-top: 12px; font-weight: 500; color: #f9e2a1;">Preparing vibrant loan packages...</p>
+        <div class="loader-text">⚡ GeTPesa</div>
+        <p style="font-size: 0.7rem; margin-top: 12px; opacity: 0.7;">loading paired packages ...</p>
     </div>
 </div>
 
-<!-- MAIN PAGE CONTENT (initially hidden) -->
+<!-- Main content -->
 <div id="mainContent" class="main-content">
+    <div class="hero">
+        <div class="badge">⚡ M‑Pesa loans • instant disbursement</div>
+        <h1>GeTPesa</h1>
+        <div class="subhead">Choose your loan pair — pay only the 11.5% fee, receive the net amount instantly.</div>
+        <div class="fee-info">
+            <i class="fas fa-percent" style="color:#00e676;"></i> transparent fee • no surprises
+        </div>
+    </div>
+
     <div class="container">
-        <div class="header">
-            <div class="badge">🚀 same-day M-Pesa</div>
-            <h1>Flexible Loans · 2‑column view</h1>
-            <div class="subhead">11.5% processing fee • get net amount instantly</div>
-        </div>
+        <!-- Paired rows will be injected by JavaScript -->
+        <div id="pairedRowsContainer"></div>
 
-        <div class="fee-note">
-            <span>💸</span> Processing fee = 11.5% of loan requested. <strong>You receive the balance</strong> within minutes after fee payment.
-        </div>
-
-        <!-- LOAN CARDS (2 per row) -->
-        <div id="loanCardsContainer" class="loan-grid"></div>
-
-        <div class="footer">
-            <p>🔐 Licensed & trusted • Money sent to M-Pesa • Replace buttons with your actual payment links</p>
-            <p style="margin-top: 8px;">⬇️ Each button is ready — just update <code style="background:#2e3b2c; padding:2px 6px; border-radius:30px;">href="your-payment-link-here"</code> per amount</p>
+        <div class="footer-note">
+            <p>⬇️ Each button is ready for your payment link. Replace <code style="background:#1E2538; padding:2px 8px; border-radius:20px;">#</code> with your actual M‑Pesa payment URL per amount.</p>
+            <p style="margin-top: 8px;">© GeTPesa — fast, secure, built for Kenyans</p>
         </div>
     </div>
 </div>
 
 <script>
-    // Loan packages: 10 amounts
-    const loanProducts = [
-        { amount: 1000 },
-        { amount: 2000 },
-        { amount: 5000 },
-        { amount: 10000 },
-        { amount: 20000 },
-        { amount: 40000 },
-        { amount: 50000 },
-        { amount: 60000 },
-        { amount: 80000 },
-        { amount: 100000 }
+    // Define loan pairs as requested: [ [amount1, amount2], ... ]
+    const loanPairs = [
+        [1000, 2000],      // row 1: 1k & 2k
+        [5000, 10000],     // row 2: 5k & 10k
+        [20000, 40000],    // row 3: 20k & 40k
+        [50000, 60000],    // row 4: 50k & 60k
+        [80000, 100000]    // row 5: 80k & 100k
     ];
 
     const FEE_PERCENT = 11.5;
@@ -340,80 +323,90 @@
         return 'KES ' + value.toLocaleString('en-KE');
     }
 
-    function buildCards() {
-        const container = document.getElementById('loanCardsContainer');
+    function formatCompact(amount) {
+        if (amount >= 1000) return (amount / 1000).toFixed(0) + 'k';
+        return amount.toString();
+    }
+
+    // Build card HTML for a single amount
+    function buildCardHTML(amount) {
+        const fee = amount * (FEE_PERCENT / 100);
+        const net = amount - fee;
+        const roundedFee = Math.round(fee);
+        const roundedNet = Math.round(net);
+        const displayAmount = formatCompact(amount);
+
+        // ⭐ REPLACE THE PAYMENT LINK BELOW with your actual M‑Pesa URL for each amount.
+        // You can modify this function to use a mapping object.
+        const paymentLink = '#';   // <-- CHANGE THIS to your real payment link
+
+        return `
+            <div class="loan-card">
+                <div class="card-header">
+                    <div class="amount">${displayAmount} <small>KES</small></div>
+                    <div class="fee-badge">fee ${formatKES(roundedFee)}</div>
+                </div>
+                <div class="card-body">
+                    <div class="detail-row">
+                        <span>📌 Loan requested</span>
+                        <span><strong>${formatKES(amount)}</strong></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>💸 Processing fee (11.5%)</span>
+                        <span style="color:#FFA07A;">${formatKES(roundedFee)}</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="detail-row">
+                        <span>✅ You receive instantly</span>
+                        <span class="net">${formatKES(roundedNet)}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>⏱️ Disbursement</span>
+                        <span>~2 min after payment</span>
+                    </div>
+                    <a href="${paymentLink}" class="pay-btn">
+                        <i class="fas fa-arrow-right"></i> Pay ${formatKES(roundedFee)}
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+
+    function buildPairedRows() {
+        const container = document.getElementById('pairedRowsContainer');
         if (!container) return;
 
-        let html = '';
-        for (let prod of loanProducts) {
-            const amount = prod.amount;
-            const fee = amount * (FEE_PERCENT / 100);
-            const net = amount - fee;
-            const roundedFee = Math.round(fee);
-            const roundedNet = Math.round(net);
-            
-            // === IMPORTANT: replace the href="#" with your actual payment link for each specific amount ===
-            // Example: you could dynamically generate a link like /pay/1000 but since user wants to add manually, we keep # with data-amount
-            // For convenience, you can edit these buttons directly in browser inspector or modify this script's paymentUrlMap.
-            // I'll leave a placeholder but also add a console reminder.
-            let paymentUrl = '#';   // <-- CHANGE THIS FOR EACH PACKAGE ACCORDING TO YOUR PAYMENT GATEWAY
-            // Optional: you can uncomment and create mapping
-            // const urlMap = { 1000: '/pay/1k', 2000: '/pay/2k', ... etc }
-            // paymentUrl = urlMap[amount] || '#';
-            
-            html += `
-                <div class="loan-card">
-                    <div class="card-header">
-                        <div class="loan-amount">
-                            <span>💎 REQUEST</span>
-                            <span>${formatKES(amount)}</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="detail-row">
-                            <span class="detail-label">Processing fee (11.5%):</span>
-                            <span class="detail-value fee-value">${formatKES(roundedFee)}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">💰 You receive (Net):</span>
-                            <span class="detail-value net-value">${formatKES(roundedNet)}</span>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="detail-row">
-                            <span class="detail-label">⏱️ Disbursement:</span>
-                            <span class="detail-value">~2 minutes after fee</span>
-                        </div>
-                        <a href="${paymentUrl}" class="payment-btn" data-loan="${amount}">
-                            📲 Pay ${formatKES(roundedFee)} (M-Pesa)
-                        </a>
-                        <p style="font-size: 0.7rem; text-align:center; margin-top: 12px; color:#a5712a;">
-                            🔗 Replace "#" with actual payment link for this amount
-                        </p>
-                    </div>
+        let rowsHtml = '';
+        for (let pair of loanPairs) {
+            const card1 = buildCardHTML(pair[0]);
+            const card2 = buildCardHTML(pair[1]);
+            rowsHtml += `
+                <div class="pair-row">
+                    ${card1}
+                    ${card2}
                 </div>
             `;
         }
-        container.innerHTML = html;
-        console.log("✅ 2-column layout ready. Update each button's href with your M-Pesa payment URL (for each amount).");
+        container.innerHTML = rowsHtml;
+        console.log("✅ Paired rows rendered. Replace each button's href with actual M‑Pesa payment links.");
     }
 
-    // ---- 3-second loader then reveal ----
-    function startLoader() {
+    // 3-second loader + reveal
+    function initLoader() {
         const loader = document.getElementById('loaderOverlay');
         const main = document.getElementById('mainContent');
-
         setTimeout(() => {
             if (loader) {
                 loader.style.opacity = '0';
                 loader.style.visibility = 'hidden';
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
+                setTimeout(() => loader.remove(), 500);
             }
             if (main) main.classList.add('visible');
         }, 3000);
     }
 
-    buildCards();
-    startLoader();
+    buildPairedRows();
+    initLoader();
 </script>
 </body>
 </html>
